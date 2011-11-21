@@ -1,15 +1,15 @@
 <?php
 /*
-Plugin Name: Pie Register
+Plugin Name: Pie Register Edited
 Plugin URI: http://pie-solutions.com/products/pie-register/
 Description: <strong>WordPress 2.5+ ONLY.</strong> Enhance your Registration Page.  Add Custom Logo, Password Field, Invitation Codes, Disclaimer, Captcha Validation, Email Validation, User Moderation, Profile Fields, Charge User fees through Paypal and more.
 Pie-register is a fork of register-plus, however many things has changed since.
 Please put this code at the top of your wp-login.php otherwise the plugin won't work properly, and always update your wp-login.php with the following code after upgrade.
 [code]<?php session_start(); ?>[/code]
 
-Author: Johnibom
+Author: Johnibom & Mahibul Hasan (edited)
 Version: 1.2.7
-Author URI: http://www.pie-solutions.com
+Author URI: http://healerswiki.org
 
 LOCALIZATION
 * Currently This feature is not available. We are working on it to improve.
@@ -1624,6 +1624,7 @@ if ( function_exists('wp_new_user_notification') )
 # Override set user password and send email to User #
 if ( !function_exists('wp_new_user_notification') ) :
 function wp_new_user_notification($user_id, $plaintext_pass = '') {
+	
 	$user = new WP_User($user_id);	
 	
 	
@@ -1716,6 +1717,8 @@ function wp_new_user_notification($user_id, $plaintext_pass = '') {
 	$message  = sprintf(__('New user Register on your blog %s:', 'piereg'), get_option('blogname')) . "\r\n\r\n";
 	$message .= sprintf(__('Username: %s', 'piereg'), $user_login) . "\r\n\r\n";
 	$message .= sprintf(__('E-mail: %s', 'piereg'), $user_email) . "\r\n";
+	
+	$message = apply_filters('pie_register_email',$message);
 
 	@wp_mail(get_option('admin_email'), sprintf(__('[%s] New User Register', 'piereg'), get_option('blogname')), $message);
 	
@@ -1736,6 +1739,9 @@ function wp_new_user_notification($user_id, $plaintext_pass = '') {
 		$message = str_replace('%user_host%', gethostbyaddr($_SERVER['REMOTE_ADDR']), $message);
 		$message = str_replace('%user_ref%', $_SERVER['HTTP_REFERER'], $message);
 		$message = str_replace('%user_agent%', $_SERVER['HTTP_USER_AGENT'], $message);
+		
+		//$message = str_replace('%user_healing_modalities%', implode(', ',$pie_extras->user_modality), $message);
+				
 		if( $piereg['firstname'] ) $message = str_replace('%firstname%', $_POST['firstname'], $message);
 		if( $piereg['lastname'] ) $message = str_replace('%lastname%', $_POST['lastname'], $message);
 		if( $piereg['website'] ) $message = str_replace('%website%', $_POST['website'], $message);
@@ -1760,6 +1766,8 @@ function wp_new_user_notification($user_id, $plaintext_pass = '') {
 		if( $piereg['adminhtml'] && $piereg['admin_nl2br'] )
 			$message = nl2br($message);
 		
+		$message = apply_filters('pie_register_email',$message);
+		
 		wp_mail(get_option('admin_email'), $subject, $message, $headers); 
 	}
 	#-- END REGPLUS --#
@@ -1780,6 +1788,7 @@ function wp_new_user_notification($user_id, $plaintext_pass = '') {
 		$message .= $notice; 
 	#-- END REGPLUS --#
 	
+		$message = apply_filters('pie_register_email',$message);
 		wp_mail($user_email, sprintf(__('[%s] Your username and password', 'piereg'), get_option('blogname')), $message);
 	
 	#-- REGPLUS --#
@@ -1800,6 +1809,10 @@ function wp_new_user_notification($user_id, $plaintext_pass = '') {
 		$message = str_replace('%user_host%', gethostbyaddr($_SERVER['REMOTE_ADDR']), $message);
 		$message = str_replace('%user_ref%', $_SERVER['HTTP_REFERER'], $message);
 		$message = str_replace('%user_agent%', $_SERVER['HTTP_USER_AGENT'], $message);
+		
+		//$message = str_replace('%user_healing_modalities%', implode(', ',$pie_extras->user_modality), $message);
+		
+		
 		if( $piereg['firstname'] ) $message = str_replace('%firstname%', $_POST['firstname'], $message);
 		if( $piereg['lastname'] ) $message = str_replace('%lastname%', $_POST['lastname'], $message);
 		if( $piereg['website'] ) $message = str_replace('%website%', $_POST['website'], $message);
@@ -1836,7 +1849,8 @@ function wp_new_user_notification($user_id, $plaintext_pass = '') {
 		
 		if( $piereg['html'] && $piereg['user_nl2br'] )
 			$message = nl2br($message);
-		
+			
+		$message = apply_filters('pie_register_email',$message);		
 		wp_mail($user_email, $subject, $message, $headers); 
 	}
 	if( $ref != $admin && ( $piereg['email_verify'] || $piereg['admin_verify'] ) ) {

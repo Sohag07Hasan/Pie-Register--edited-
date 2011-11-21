@@ -55,7 +55,7 @@ if( $_POST['notice'] ){
 								}
 							}
 							?>
-                            <p><strong><?php _e('Replacement Keys', 'piereg');?>:</strong> &nbsp; %user_login%  &nbsp; %user_pass% &nbsp; %user_email% &nbsp; %blogname% &nbsp; %siteurl% <?php echo $custom_keys; ?>&nbsp; %user_ip% &nbsp; %user_ref% &nbsp; %user_host% &nbsp; %user_agent% </p>
+                            <p><strong><?php _e('Replacement Keys', 'piereg');?>:</strong> &nbsp; %user_login%  &nbsp; %user_pass% &nbsp; %user_email% &nbsp; %blogname% &nbsp; %siteurl% <?php echo $custom_keys; ?>&nbsp; %user_ip% &nbsp; %user_ref% &nbsp; %user_host% &nbsp; %user_agent% &nbsp; %user_healing_modalities%</p>
                             <textarea name="piereg_msg" id="msg" rows="10" cols="25" style="width:80%;height:300px;"><?php echo $piereg['msg'];?></textarea><br /><label><input type="checkbox" name="piereg_html" id="html" value="1" <?php if( $piereg['html'] ) echo 'checked="checked"';?> /> <?php _e('Send as HTML', 'piereg');?></label> &nbsp; <label><input type="checkbox" name="piereg_user_nl2br" id="html" value="1" <?php if( $piereg['user_nl2br'] ) echo 'checked="checked"';?> /> <?php _e('Convert new lines to &lt;br/> tags (HTML only)' , 'piereg');?></label></td>
                        	</tr>
                         

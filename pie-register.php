@@ -1597,7 +1597,7 @@ $fp = fsockopen ($url, 80, $errno, $errstr, 30);
 		}
 		
 		function override_warning(){
-			if( current_user_can(10) &&  $_GET['page'] == 'pie-register' )
+			if( current_user_can('activate_plugins') &&  $_GET['page'] == 'pie-register' )
 			echo "<div id='piereg-warning' class='updated fade-ff0000'><p><strong>".__('You have another plugin installed that is conflicting with Pie Register.  This other plugin is overriding the user notification emails.  Please see <a href="http://pie-solutions.com/news/pie-register-conflicts/">Pie Register Conflicts</a> for more information.', 'piereg') . "</strong></p></div>";
 		}
 		
